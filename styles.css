@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+:root {
+    --typewriterSpeed: 2s;
+    --typewriterCharacters: 9;
+}
+
 * {
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
@@ -26,54 +31,47 @@ section {
     color: white;
 }
 
-#intro-content {
-    font-size: 2.5rem;
+.intro-content {
+    width: max-content;
+    font-size: clamp(1rem, 3vw + 1rem, 4rem);
+    font-family: monospace;
+    position: relative;
+    background-color: #090947;
 }
 
-.typewriter {
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid orange; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .15em; /* Adjust as needed */
-    animation: 
-      typing 3s steps(20, end),
-      blink-caret .5s step-end infinite;
-  }
-  
-.typewriter2{
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid orange; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .15em; /* Adjust as needed */
-    animation: 
-      typing2 6s steps(20, end),
-      blink-caret .5s step-end infinite;
-  }
-  
-  /* The typing effect */
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 40% }
-  }
-  
-  @keyframes typing2 {
-    0%{
-        width: 0;
-    }
-    50%{
-        width: 0;
-    }
-    100%{
-        width: 30%;
-    }
+.intro-content::before,
+.intro-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
 
-    to { width: 40% }
-  }
+.intro-content::before {
+    background-color: #090947;
+    animation: 
+        typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards;
+}
 
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: orange; }
-  }
+.intro-content::after {
+    width: 0.125em;
+    background: white;
+    animation: 
+        typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards,
+        blink .75s steps(9) infinite;
+ }
+
+@keyframes typewriter {
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes blink {
+    to {
+        background: transparent;
+    }
+}
+
