@@ -31,16 +31,17 @@ section {
     color: white;
 }
 
-.intro-content {
+#intro-content {
     width: max-content;
     font-size: clamp(1rem, 3vw + 1rem, 4rem);
     font-family: monospace;
     position: relative;
     background-color: #090947;
+    border-radius: 10px;
 }
 
-.intro-content::before,
-.intro-content::after {
+#intro-content::before,
+#intro-content::after {
     content: "";
     position: absolute;
     top: 0;
@@ -49,13 +50,14 @@ section {
     left: 0;
 }
 
-.intro-content::before {
+#intro-content::before {
     background-color: #090947;
+    border-radius: 10px;
     animation: 
         typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards;
 }
 
-.intro-content::after {
+#intro-content::after {
     width: 0.125em;
     background: white;
     animation: 
@@ -75,3 +77,18 @@ section {
     }
 }
 
+#sub-intro {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(3rem);
+    animation: fadeInUp 2s ease 4s forwards;
+
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
