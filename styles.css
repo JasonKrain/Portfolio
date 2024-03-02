@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
+
 :root {
     --typewriterSpeed: 2s;
     --typewriterCharacters: 9;
@@ -22,6 +24,9 @@ section {
     min-height: 100vh;
     margin: 0;
 }
+
+/* ------------ */
+/* intro section */
 
 #intro {
     display: flex;
@@ -91,4 +96,28 @@ section {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+#intro-content {
+    scale: 1; opacity: 1;
+    animation: fade-in linear forwards;
+    animation-timeline: view();
+    animation-range: exit -100px;
+}
+
+
+@keyframes fade-in {
+    to { scale: .8; opacity: 0;}
+}
+
+/* ---------------- */
+/* AboutMe Section */
+
+#about-me {
+    display: flex;
+    justify-content: center;
+}
+
+#about-me h1{
+    color: white;
 }
