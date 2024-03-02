@@ -100,14 +100,18 @@ section {
 
 #intro-content {
     scale: 1; opacity: 1;
-    animation: fade-in linear forwards;
+    animation: fade-out linear forwards;
     animation-timeline: view();
     animation-range: exit -100px;
 }
 
 
-@keyframes fade-in {
+@keyframes fade-out {
     to { scale: .8; opacity: 0;}
+}
+
+@keyframes fade-in {
+    to { scale: 1; opacity: 1;}
 }
 
 /* ---------------- */
@@ -120,4 +124,17 @@ section {
 
 #about-me h1{
     color: white;
+    scale: .8; opacity: 0;
+    animation: fade-in linear forwards;
+    animation-timeline: view();
+    animation-range: entry 100px;
+    height: max-content;
 }
+
+#about-me-grid {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
