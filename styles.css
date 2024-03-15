@@ -114,6 +114,11 @@ section {
     to { scale: 1; opacity: 1;}
 }
 
+#download {
+    background-color: transparent;
+    border-radius: 20px;
+}
+
 /* ---------------- */
 /* AboutMe Section */
 
