@@ -21,7 +21,7 @@ body {
 }
 
 section {
-    min-height: 100vh;
+    min-height: 80vh;
     margin: 0;
 }
 
@@ -117,6 +117,21 @@ section {
 #download {
     background-color: transparent;
     border-radius: 20px;
+    display: flex;
+    justify-content: center; 
+    gap: 10px;
+    border-style: solid;
+    color: white;
+    scale: 1; opacity: 1;
+    animation: fade-out linear forwards;
+    animation-timeline: view();
+    animation-range: exit -100px;
+}
+
+#download span {
+    border-style: solid;
+    border-radius: 20px;
+
 }
 
 /* ---------------- */
@@ -125,6 +140,9 @@ section {
 #about-me {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
 }
 
 #about-me h1{
@@ -134,12 +152,23 @@ section {
     animation-timeline: view();
     animation-range: entry 100px;
     height: max-content;
+    font-size: 2rem;
 }
 
 #about-me-grid {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
+#description p {
+    color: white;
+    max-width: 80vw;
+    font-size: 1.5rem;
+    scale: .8; opacity: 0;
+    animation: fade-in linear forwards;
+    animation-timeline: view();
+    animation-range: entry 100px;
+}
 
