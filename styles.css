@@ -25,6 +25,28 @@ section {
     margin: 0;
 }
 
+#nav-bar {
+    position: fixed;
+    right: 1.1rem;
+}
+
+#nav-bar ul {
+    list-style: none;
+    gap: 5px;
+}
+
+#nav-bar ul li {
+    text-align: right;
+    color: white;
+    font-size: 1.3rem;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+}
+
+
 /* ------------ */
 /* intro section */
 
@@ -43,6 +65,7 @@ section {
     position: relative;
     background-color: #090947;
     border-radius: 10px;
+    box-shadow: 0 0 1px 1px black;
 }
 
 #intro-content::before,
@@ -126,12 +149,13 @@ section {
     animation: fade-out linear forwards;
     animation-timeline: view();
     animation-range: exit -100px;
+    font-size: 1.2rem;
+    width: max-content;
 }
 
 #download span {
     border-style: solid;
     border-radius: 20px;
-
 }
 
 /* ---------------- */
@@ -145,14 +169,16 @@ section {
     gap: 50px;
 }
 
-#about-me h1{
+#about-me-h1 h1{
     color: white;
+    font-size: 2rem;
+}
+
+#about-me-h1 {
     scale: .8; opacity: 0;
     animation: fade-in linear forwards;
     animation-timeline: view();
-    animation-range: entry 100px;
-    height: max-content;
-    font-size: 2rem;
+    animation-range: contain;
 }
 
 #about-me-grid {
@@ -169,6 +195,6 @@ section {
     scale: .8; opacity: 0;
     animation: fade-in linear forwards;
     animation-timeline: view();
-    animation-range: entry 100px;
+    animation-range: cover cover 500px;
 }
 
