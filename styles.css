@@ -263,3 +263,24 @@ section {
 /* ------------------- */
 /* Contact Me Section */
 
+#contact-form-entry {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    margin-left: 10%;
+    gap: 2rem;
+}
+
+#contact-form-entry input {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    border: 0;
+    color: white;
+    font-size: clamp(1.5rem, 3vw + 1.5rem, 2rem);
+}
+
+#contact-description {
+    height: 10rem;
+}
+
+
