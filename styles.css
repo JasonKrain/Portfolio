@@ -221,3 +221,7 @@ section {
     animation-range: cover cover 500px;
 }
 
+.image {
+    width: 10rem;
+}
+
