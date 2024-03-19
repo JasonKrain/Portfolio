@@ -32,14 +32,12 @@ section {
     flex-direction: horizontal;
 }
 
-#nav-bar ul {
-    opacity: 0.7;
+.nav-bar-dropdown {
     list-style: none;
     gap: 5px;
-    
 }
 
-#nav-bar ul li {
+.nav-bar-dropdown li {
     text-align: right;
     color: white;
     font-size: 1.3rem;
@@ -59,10 +57,16 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
+
 
 #nav-button:hover {
     background-color: grey;
+}
+
+#nav-button:active .nav-bar-dropdown{
+    display: block;
 }
 
 
