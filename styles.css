@@ -27,7 +27,7 @@ section {
 
 #nav-bar {
     position: fixed;
-    right: 1.1rem;
+    right: -7.8rem;
     display: flex;
     flex-direction: horizontal;
 }
@@ -35,6 +35,7 @@ section {
 .nav-bar-dropdown {
     list-style: none;
     gap: 5px;
+
 }
 
 .dropdown-button {
@@ -42,10 +43,7 @@ section {
     font-size: 1.3rem;
     border: none;
     color: white;
-    background-color: rgba(255,255,255,0.00);
-    background-image: url('images/brushstroke.png');
-    background-size: 120% 140%;
-    background-position: center;
+    background-color: rgba(255,255,255,0.2);
     border-radius: 20px;
     padding-left: 10px;
     padding-right: 10px;
@@ -79,7 +77,47 @@ section {
     display: block;
 }
 
+.nav-bar-animation {
+    animation: play 1s forwards;
+}
 
+.nav-bar-animation-reverse {
+    animation: play-reverse 1s forwards;
+}
+
+@keyframes play {
+    from {
+        right: -7.8rem;
+    }
+    to {
+        right: 1rem;
+    }
+}
+
+@keyframes play-reverse {
+    from {
+        right: 1rem;
+    }
+    to {
+        right: -7.8rem;
+    }
+}
+
+
+
+#intro-navbutton,
+#about-me-navbutton,
+#skillset-navbutton,
+#projects-navbutton {
+    transition: transform .3s;
+}
+
+#intro-navbutton:hover,
+#about-me-navbutton:hover,
+#skillset-navbutton:hover,
+#projects-navbutton:hover {
+    transform: scale(1.5);
+}
 
 /* ------------ */
 /* intro section */
