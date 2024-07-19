@@ -27,20 +27,23 @@ section {
 
 #nav-bar {
     position: fixed;
-    right: -7.8rem;
+    right: clamp(-15rem,-10rem,-15vw);
     display: flex;
     flex-direction: horizontal;
+    width: clamp(200px,300px,20vw);
+    height: clamp(200px,300px,20vh);
+    z-index: 100;
+    
 }
 
 .nav-bar-dropdown {
     list-style: none;
     gap: 5px;
-
 }
 
 .dropdown-button {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: clamp(10px,28px,3vw);
     border: none;
     color: white;
     background-color: rgba(255,255,255,0.2);
@@ -48,7 +51,9 @@ section {
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 5px;
-    width: 125px;
+    margin-left: 2vw;
+    width: clamp(50px,200px,25vw);
+    text-decoration: none;
 }
 
 .dropdown-button:hover {
@@ -56,8 +61,8 @@ section {
 }
 
 #nav-button {
-    width: 40px;
-    height: 40px;
+    width: clamp(40px,60px,5vw);
+    height: clamp(40px,60px,5vw);
     border: 0;
     background: transparent;
     border-radius: 30px;
@@ -87,19 +92,19 @@ section {
 
 @keyframes play {
     from {
-        right: -7.8rem;
+        right: clamp(-15rem,-10rem,-15vw);
     }
     to {
-        right: 1rem;
+        right: clamp(0.9rem,10rem,-1vw);
     }
 }
 
 @keyframes play-reverse {
     from {
-        right: 1rem;
+        right: clamp(0.9rem,10rem,-1vw);
     }
     to {
-        right: -7.8rem;
+        right: clamp(-15rem,-10rem,-15vw);
     }
 }
 
