@@ -26,3 +26,12 @@ function Menu() {
     }
 }
 
+
+document.addEventListener("scroll",function() {
+  var height = document.getElementById("intro").scrollHeight;
+  // console.log(height);
+
+  var remaining = document.documentElement.scrollTop;
+  console.log(remaining);
+
+});
