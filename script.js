@@ -27,11 +27,39 @@ function Menu() {
 }
 
 
+// Scroll listener for scroll tied animations + effects
+
 document.addEventListener("scroll",function() {
-  var height = document.getElementById("intro").scrollHeight;
   // console.log(height);
 
   var remaining = document.documentElement.scrollTop;
-  console.log(remaining);
+  // console.log(remaining);
+  
+  var introHeight = document.getElementById("intro").scrollHeight;  
+  var transitionHeight = document.getElementById("transition-section").scrollHeight;
+  var height = remaining - introHeight;
+  var opacity = (height / transitionHeight) * 1;
 
+// test
+  console.log("-------------------------------------------------")
+  console.log("introHeight:" , introHeight);
+  console.log("transitionHeight:", transitionHeight);
+  console.log("heigh:", height);
+  console.log("opacity:", opacity);
+  
+  if(opacity < 0) {
+    opacity = 0;
+  }
+
+
+
+  // var transitionImage = document.getElementById("transition-image");
+  // var transitionImageOpacity = window.getComputedStyle(transitionImage).getPropertyValue("opacity")
+  // var transitionImageOpacity = document.getElementById("transition-image").style.opacity;
+
+  // console.log("transitionImageOpacity:", transitionImageOpacity);
+
+  if(!(height< 0)){
+    document.getElementById("transition-image").style.opacity = opacity;
+  }
 });

@@ -255,7 +255,6 @@ section {
 /* ---------------- */
 /* Transition Section*/
 #transition {
-    min-height: 80vh;
     position: fixed;
     margin: 0;
     mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 10%, transparent 75%);
@@ -264,6 +263,9 @@ section {
 #transition-image-container {
     width: 100vw;
     height: 100vh;
+    min-width: 500px;
+    min-height: 281px;
+
 }
 
 #transition-image {
@@ -271,9 +273,10 @@ section {
     margin-top: 15%;
     border-top-left-radius: 10%;
     border-top-right-radius: 10%;
-    top: 0;
-    left: 0;
     z-index: -1;
+    position: fixed;
+    bottom: 0;
+    opacity: 0;
 }
 
 
