@@ -41,11 +41,11 @@ document.addEventListener("scroll",function() {
   var opacity = (height / transitionHeight) * 1;
 
 // test
-  console.log("-------------------------------------------------")
-  console.log("introHeight:" , introHeight);
-  console.log("transitionHeight:", transitionHeight);
-  console.log("heigh:", height);
-  console.log("opacity:", opacity);
+  // console.log("-------------------------------------------------")
+  // console.log("introHeight:" , introHeight);
+  // console.log("transitionHeight:", transitionHeight);
+  // console.log("height:", height);
+  // console.log("opacity:", opacity);
   
   if(opacity < 0) {
     opacity = 0;
@@ -62,4 +62,17 @@ document.addEventListener("scroll",function() {
   if(!(height< 0)){
     document.getElementById("transition-image").style.opacity = opacity;
   }
+
+  var aboutMeHeight = (document.getElementById("about-me").scrollHeight)*0.65 + document.getElementById("transition-section").scrollHeight + introHeight;
+
+  if(remaining > aboutMeHeight) {
+    document.getElementById("transition-image").style.bottom = (remaining - aboutMeHeight)*0.11 + "%";
+  }
+  else {
+    document.getElementById("transition-image").style.bottom = 0 + "%";
+
+  }
+  
+
+
 });
