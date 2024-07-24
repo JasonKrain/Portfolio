@@ -146,7 +146,7 @@ section {
 
 #intro-content {
     width: max-content;
-    font-size: clamp(1rem, 3vw + 1rem, 4rem);
+    font-size: clamp(0.5rem, 3vw + 1rem, 4rem);
     font-family: monospace;
     position: relative;
     background-color: #090947;
@@ -257,12 +257,13 @@ section {
 #transition {
     position: fixed;
     margin: 0;
-    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 10%, transparent 75%);
+    z-index: -1;
 }
 
 #transition-image-container {
     width: 100vw;
     height: 100vh;
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 10%, transparent 75%);
     min-width: 500px;
     min-height: 281px;
 
@@ -278,6 +279,8 @@ section {
     bottom: 0;
     opacity: 0;
 }
+
+
 
 
 /* ---------------- */
@@ -333,10 +336,7 @@ section {
     width: 10rem;
 }
 
-#css-image {
-    width: 12rem;
-    margin-right: -2rem;
-}
+
 
 /* ------------------ */
 /* Project Section */
@@ -349,6 +349,12 @@ section {
     grid-template-columns: 70% 30%;
     margin: auto;
     margin-bottom: 2rem;
+    text-decoration: none;
+    border-radius: 3rem;
+}
+
+.project-entry:hover {
+    background-color: lightgrey;
 }
 
 .project-description {
@@ -383,3 +389,20 @@ section {
 }
 
 
+@media (max-width:800px) {
+    #transition-image {
+        width: 960px;
+        height: 540px;
+    }
+    
+}
+@media (max-width:800px) {
+    #description p {
+        font-size: 15px;
+    }
+}
+@media (max-width:550px) {
+    .image {
+        width: 6rem;
+    }
+}
