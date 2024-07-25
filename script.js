@@ -1,5 +1,7 @@
 var menuState = 0;
 
+// function for dropdown menu animation to be reversible 
+
 function Menu() {
     if(menuState == 0) {
         document.getElementById("menu").innerHTML = `
@@ -40,24 +42,10 @@ document.addEventListener("scroll",function() {
   var height = remaining - introHeight;
   var opacity = (height / transitionHeight) * 1;
 
-// test
-  // console.log("-------------------------------------------------")
-  // console.log("introHeight:" , introHeight);
-  // console.log("transitionHeight:", transitionHeight);
-  // console.log("height:", height);
-  // console.log("opacity:", opacity);
   
   if(opacity < 0) {
     opacity = 0;
   }
-
-
-
-  // var transitionImage = document.getElementById("transition-image");
-  // var transitionImageOpacity = window.getComputedStyle(transitionImage).getPropertyValue("opacity")
-  // var transitionImageOpacity = document.getElementById("transition-image").style.opacity;
-
-  // console.log("transitionImageOpacity:", transitionImageOpacity);
 
   if(!(height< 0)){
     document.getElementById("transition-image").style.opacity = opacity;
