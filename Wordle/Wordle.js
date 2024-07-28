@@ -31,7 +31,7 @@ var winFlag = [0,0,0,0,0];
 var stopGame = 0;
 
 
-document.addEventListener("keypress", function(event){
+document.addEventListener("keydown", function(event){
         var key = event.key.toUpperCase();
         var keycode = event.keycode;
 
@@ -115,8 +115,7 @@ document.addEventListener("keypress", function(event){
                     playerGuessElement.classList.add("halfCorrect");
                     winFlag[letterAppearsIndex[i]] = 0;
                 }
-                for(i=0;i<letterAppearsIndex2.length;i++) {
-                    console.log(currentRowList[currentRowIndex] + (letterAppearsIndex2[i]+1));
+                for(i=0;i<letterAppearsIndex2.length;i++) {                    
                     playerGuessElement2 = document.getElementById(currentRowList[currentRowIndex] + (letterAppearsIndex2[i]+1));
                     playerGuessElement2.classList.add("halfCorrect");
                     winFlag[letterAppearsIndex[i]] = 0;
