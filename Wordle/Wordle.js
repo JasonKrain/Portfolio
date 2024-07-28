@@ -31,7 +31,7 @@ var winFlag = [0,0,0,0,0];
 var stopGame = 0;
 
 
-document.addEventListener("keydown", function(event){
+document.addEventListener("keypress", function(event){
         var key = event.key.toUpperCase();
         var keycode = event.keycode;
 

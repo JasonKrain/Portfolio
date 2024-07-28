@@ -58,7 +58,7 @@ body {
 
 #hiddeninputfield {
     position: absolute;
-    opacity: 0;
+    opacity: 1;
     z-index: -1;
 }
 
