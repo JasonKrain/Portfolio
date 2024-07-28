@@ -30,8 +30,16 @@ var currentRowIndex = 0;
 var winFlag = [0,0,0,0,0];
 var stopGame = 0;
 
+document.addEventListener("input", function(event){
+    Update(event);
+});
 
 document.addEventListener("keydown", function(event){
+    Update(event);
+});
+
+
+function Update(event){
         var key = event.key.toUpperCase();
         var keycode = event.keycode;
 
@@ -142,4 +150,4 @@ document.addEventListener("keydown", function(event){
         }
             
         }
-});
+};
