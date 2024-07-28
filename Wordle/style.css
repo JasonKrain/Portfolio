@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: grey;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: absolute; 
+    width: 100vw;
+}
+
+#main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;    
+}
+
+#main {
+    min-width: 200px;
+    top: 20vh;
+    width: 30vw;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px;
+    background-color: white;
+    position: absolute;
+
+}
+
+.guess {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    padding: 0;
+    margin: 10px;
+}
+
+.character {
+    background: lightgrey;
+    aspect-ratio: 1/1;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#hiddeninputfield {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+.notCorrect {
+    background-color: red;
+    color: white;
+}
+
+.halfCorrect {
+    background-color: yellow;
+}
+
+.fullCorrect {
+    background-color: green;
+    color: white;
+}
+
+button {
+    position: absolute;
+    top: 90%;
+    width: 30%;
+}
