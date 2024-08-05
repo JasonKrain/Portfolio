@@ -13,9 +13,36 @@ var highlight = [];
 var currentPiece = 0;
 var currentClassPiece = 0;
 var pieceKilled = false;
-const pieces = ["pawnBlack","pawnWhite","rookBlack","rookWhite","bishopBlack","bishopWhite","knightBlack","knightWhite","queenBlack","queenWhite","kingBlack","kingWhite"];
-const piecesWhite = ["pawnWhite","rookWhite","bishopWhite","knightWhite","queenWhite","kingWhite"];
-const piecesBlack = ["pawnBlack","rookBlack","bishopBlack","knightBlack","queenBlack","kingBlack"];
+const pieces = [
+    "pawnBlack1","pawnBlack2","pawnBlack3","pawnBlack4","pawnBlack5","pawnBlack6","pawnBlack7","pawnBlack8",
+    "pawnWhite1","pawnWhite2","pawnWhite3","pawnWhite4","pawnWhite5","pawnWhite6","pawnWhite7","pawnWhite8",
+    "rookBlack1","rookBlack2",
+    "rookWhite1","rookWhite2",
+    "bishopBlack1","bishopBlack2",
+    "bishopWhite1","bishopWhite2",
+    "knightBlack1","knightBlack2",
+    "knightWhite1","knightWhite2",
+    "queenBlack",
+    "queenWhite",
+    "kingBlack",
+    "kingWhite"
+];
+const piecesWhite = [
+    "pawnWhite1","pawnWhite2","pawnWhite3","pawnWhite4","pawnWhite5","pawnWhite6","pawnWhite7","pawnWhite8",
+    "rookWhite1","rookWhite2",
+    "bishopWhite1","bishopWhite2",
+    "knightWhite1","knightWhite2",
+    "queenWhite",
+    "kingWhite"
+];
+const piecesBlack = [
+    "pawnBlack1","pawnBlack2","pawnBlack3","pawnBlack4","pawnBlack5","pawnBlack6","pawnBlack7","pawnBlack8",
+    "rookBlack1","rookBlack2",
+    "bishopBlack1","bishopBlack2",
+    "knightBlack1","knightBlack2",
+    "queenBlack",
+    "kingBlack"
+];
 
 // Up -> Down -> Left -> Right
 var stopEdge = [];
@@ -134,6 +161,8 @@ function Update(classList,ID) {
         console.log("classPiece: ", classPiece);
         console.log("ID: ", ID);
 
+        console.log("turnWhite: ", turnWhite, " piecesBlack :", piecesBlack.includes(classPiece))
+        console.log("turnWhite: ", turnWhite, " piecesWhite :", piecesWhite.includes(classPiece))
         if((turnWhite == true) && (piecesBlack.includes(classPiece))) {
             classPiece = "wrongSide";
         }
@@ -171,7 +200,14 @@ function checkBoardEdge(id) {
 // -------------------------------------------------------------------------------------------------------------------------------------------------------
 function showMove(classPiece,id) {
     switch(classPiece) {
-    case "pawnWhite":
+    case "pawnWhite1":
+    case "pawnWhite2":
+    case "pawnWhite3":
+    case "pawnWhite4":
+    case "pawnWhite5":
+    case "pawnWhite6":
+    case "pawnWhite7":
+    case "pawnWhite8":    
         var pawnWhiteCheckOccupy = document.getElementById(id - 8).classList;
         if (!pieces.includes(pawnWhiteCheckOccupy[pawnWhiteCheckOccupy.length-1])) {
             pawnWhiteCheckOccupy.add("validMoveEmpty");
@@ -206,7 +242,14 @@ function showMove(classPiece,id) {
         break;
     
 
-    case "pawnBlack":
+    case "pawnBlack1":
+    case "pawnBlack2":
+    case "pawnBlack3":
+    case "pawnBlack4":    
+    case "pawnBlack5":
+    case "pawnBlack6":
+    case "pawnBlack7":
+    case "pawnBlack8":            
         let pawnBlackCheckOccupy = document.getElementById(id - (-8)).classList;
         if (!pieces.includes(pawnBlackCheckOccupy[pawnBlackCheckOccupy.length-1])) {
             document.getElementById(id - (-8)).classList.add("validMoveEmpty");
@@ -241,7 +284,8 @@ function showMove(classPiece,id) {
         }
         break;        
 
-    case "rookWhite":
+    case "rookWhite1":
+    case "rookWhite2":
         stopEdge = [
             [false],
             [false],
@@ -359,7 +403,8 @@ function showMove(classPiece,id) {
         }
         break; 
         
-    case "rookBlack":
+    case "rookBlack1":
+    case "rookBlack2":    
         stopEdge = [
             [false],
             [false],
@@ -477,7 +522,8 @@ function showMove(classPiece,id) {
         }
         break;
 
-    case "knightWhite": {
+    case "knightWhite1":
+    case "knightWhite2": {
         // variables for path direction
         let idUP = inRangeOfBoard(id-8);
         let idDOWN = inRangeOfBoard(id-(-8));
@@ -584,7 +630,8 @@ function showMove(classPiece,id) {
 
         break;
         }
-    case "knightBlack": {
+    case "knightBlack1":
+    case "knightBlack2": {
         // variables for path direction
         let idUP = inRangeOfBoard(id-8);
         let idDOWN = inRangeOfBoard(id-(-8));
@@ -691,7 +738,8 @@ function showMove(classPiece,id) {
 
         break;
         }
-    case "bishopWhite": {
+    case "bishopWhite1":
+    case "bishopWhite2": {
         //top left -> top right -> bottom left -> bottom right
         let stopCorner = [
             [false],
@@ -771,7 +819,8 @@ function showMove(classPiece,id) {
         }
         break;
         }
-    case "bishopBlack": {
+    case "bishopBlack1":
+    case "bishopBlack2": {
         //top left -> top right -> bottom left -> bottom right
         let stopCorner = [
             [false],
