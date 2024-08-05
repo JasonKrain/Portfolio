@@ -58,29 +58,29 @@ document.addEventListener("DOMContentLoaded", function() {
 function startingPosition() {
     //pawns 
     for (let i = 9; i < 17; i++) {
-        document.getElementById(i).classList.add("pawnBlack");
+        document.getElementById(i).classList.add("pawnBlack"+(i-8).toString());
     }
     for (let i = 49; i < 57; i++) {
-        document.getElementById(i).classList.add("pawnWhite");
+        document.getElementById(i).classList.add("pawnWhite"+(i-48).toString());
     }
 
     // rooks 
-    document.getElementById(1).classList.add("rookBlack");
-    document.getElementById(8).classList.add("rookBlack");
-    document.getElementById(57).classList.add("rookWhite");
-    document.getElementById(64).classList.add("rookWhite");
+    document.getElementById(1).classList.add("rookBlack1");
+    document.getElementById(8).classList.add("rookBlack2");
+    document.getElementById(57).classList.add("rookWhite1");
+    document.getElementById(64).classList.add("rookWhite2");
 
     // knights 
-    document.getElementById(2).classList.add("knightBlack");
-    document.getElementById(7).classList.add("knightBlack");
-    document.getElementById(58).classList.add("knightWhite");
-    document.getElementById(63).classList.add("knightWhite");
+    document.getElementById(2).classList.add("knightBlack1");
+    document.getElementById(7).classList.add("knightBlack2");
+    document.getElementById(58).classList.add("knightWhite1");
+    document.getElementById(63).classList.add("knightWhite2");
 
     // bishops
-    document.getElementById(3).classList.add("bishopBlack");
-    document.getElementById(6).classList.add("bishopBlack");
-    document.getElementById(59).classList.add("bishopWhite");
-    document.getElementById(62).classList.add("bishopWhite");
+    document.getElementById(3).classList.add("bishopBlack1");
+    document.getElementById(6).classList.add("bishopBlack2");
+    document.getElementById(59).classList.add("bishopWhite1");
+    document.getElementById(62).classList.add("bishopWhite2");
 
     // queens 
     document.getElementById(5).classList.add("queenBlack");
