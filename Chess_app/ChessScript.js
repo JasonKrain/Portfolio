@@ -44,6 +44,24 @@ const piecesBlack = [
     "kingBlack"
 ];
 
+const whiteMoves = new Map([
+    ["pawnWhite1",[]],["pawnWhite2",[]],["pawnWhite3",[]],["pawnWhite4",[]],["pawnWhite5",[]],["pawnWhite6",[]],["pawnWhite7",[]],["pawnWhite8",[]],
+    ["rookWhite1",[]],["rookWhite2",[]],
+    ["bishopWhite1",[]],["bishopWhite2",[]],
+    ["knightWhite1",[]],["knightWhite2",[]],
+    ["queenWhite",[]],
+    ["kingWhite",[]]
+]);
+
+const blackMoves = new Map([
+    ["pawnBlack1",[]],["pawnBlack2",[]],["pawnBlack3",[]],["pawnBlack4",[]],["pawnBlack5",[]],["pawnBlack6",[]],["pawnBlack7",[]],["pawnBlack8",[]],
+    ["rookBlack1",[]],["rookBlack2",[]],
+    ["bishopBlack1",[]],["bishopBlack2",[]],
+    ["knightBlack1",[]],["knightBlack2",[]],
+    ["queenBlack",[]],
+    ["kingBlack",[]]
+]);
+
 // Up -> Down -> Left -> Right
 var stopEdge = [];
 
@@ -79,6 +97,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // create starting positions
     startingPosition();
+
+    // load current possible moves of each piece
+    
+
 })
 
 
