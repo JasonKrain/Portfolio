@@ -99,7 +99,20 @@ document.addEventListener("DOMContentLoaded", function() {
     startingPosition();
 
     // load current possible moves of each piece
-    
+    for(let i = 0; i < piecesWhite.length; i++) {
+        console.log("piecesWhite[i]: ",piecesWhite[i]," id: ",document.getElementsByClassName(piecesWhite[i])[0].id);
+        showMove(piecesWhite[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
+        whiteMoves.set(piecesWhite[i],highlight);
+        highlight = [];
+    }
+
+    for(let i = 0; i < piecesBlack.length; i++) {
+        showMove(piecesBlack[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
+        blackMoves.set(piecesBlack[i],highlight);
+        highlight = [];
+    }
+    console.log("whiteMoves: ",whiteMoves);
+    console.log("blackMoves: ",blackMoves);
 
 })
 
@@ -220,7 +233,15 @@ function checkBoardEdge(id) {
 
 // Movesets ----------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------------------
-function showMove(classPiece,id) {
+function showMove(classPiece,id,highlightOnly) {
+    let onlyHighlight;
+    if(highlightOnly == true) {
+        onlyHighlight = true
+    }
+    else {
+        onlyHighlight = false
+    }
+    console.log("onlyHighlight: ",onlyHighlight);
     switch(classPiece) {
     case "pawnWhite1":
     case "pawnWhite2":
@@ -232,12 +253,16 @@ function showMove(classPiece,id) {
     case "pawnWhite8":    
         var pawnWhiteCheckOccupy = document.getElementById(id - 8).classList;
         if (!pieces.includes(pawnWhiteCheckOccupy[pawnWhiteCheckOccupy.length-1])) {
-            pawnWhiteCheckOccupy.add("validMoveEmpty");
+            if(onlyHighlight == false) {
+                pawnWhiteCheckOccupy.add("validMoveEmpty");
+            }
             highlight.push(id - 8);
             pawnWhiteCheckOccupy = document.getElementById(id - 16).classList;
             if (id < 57 && id > 48) {
                 if (!pieces.includes(pawnWhiteCheckOccupy[pawnWhiteCheckOccupy.length-1])) {
-                    document.getElementById(id - 16).classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        document.getElementById(id - 16).classList.add("validMoveEmpty");
+                    }
                     highlight.push(id - 16);
                 }
             }
@@ -257,7 +282,9 @@ function showMove(classPiece,id) {
         for (let i = 0; i < pawnWhiteAttack.length; i++){
             let checkAttack = document.getElementById(id - pawnWhiteAttack[i]).classList;
             if (piecesBlack.includes(checkAttack[checkAttack.length-1])) {
-                checkAttack.add("validMoveOccupied");
+                if(onlyHighlight == false) {
+                    checkAttack.add("validMoveOccupied");
+                }
                 highlight.push(id - pawnWhiteAttack[i]);
             }
         }
@@ -274,12 +301,16 @@ function showMove(classPiece,id) {
     case "pawnBlack8":            
         let pawnBlackCheckOccupy = document.getElementById(id - (-8)).classList;
         if (!pieces.includes(pawnBlackCheckOccupy[pawnBlackCheckOccupy.length-1])) {
-            document.getElementById(id - (-8)).classList.add("validMoveEmpty");
+            if(onlyHighlight == false) {
+                document.getElementById(id - (-8)).classList.add("validMoveEmpty");
+            }
             highlight.push(id - (-8));
             pawnBlackCheckOccupy = document.getElementById(id - (-16)).classList;
             if (id < 17 && id > 8) {
                 if (!pieces.includes(pawnBlackCheckOccupy[pawnBlackCheckOccupy.length-1])) {
-                    document.getElementById(id - (-16)).classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        document.getElementById(id - (-16)).classList.add("validMoveEmpty");
+                    }
                     highlight.push(id - (-16));
                 }
             }
@@ -300,7 +331,9 @@ function showMove(classPiece,id) {
         for (let i = 0; i < pawnBlackAttack.length; i++){
             let checkAttack = document.getElementById(id - pawnBlackAttack[i]).classList;
             if (piecesWhite.includes(checkAttack[checkAttack.length-1])) {
-                checkAttack.add("validMoveOccupied");
+                if(onlyHighlight == false) {
+                    checkAttack.add("validMoveOccupied");
+                }
                 highlight.push(id - pawnBlackAttack[i]);
             }
         }
@@ -345,7 +378,9 @@ function showMove(classPiece,id) {
 
             if(stopEdge[0][0] == false) {
                 if(piecesBlack.includes(verticalUP.classList[verticalUP.classList.length-1])) {
-                    verticalUP.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idUP);
                     stopEdge[0][0] = true;
                 }
@@ -354,17 +389,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[0].includes(idUP)) {
                     stopEdge[0][0] = true;
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
                 else {
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
             }
             if(stopEdge[1][0] == false) {
                 if(piecesBlack.includes(verticalDOWN.classList[verticalDOWN.classList.length-1])) {
-                    verticalDOWN.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idDOWN)
                     stopEdge[1][0] = true;
                 }
@@ -373,17 +414,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[1].includes(idDOWN)) {
                     stopEdge[1][0] = true;
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
                 else {
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
             }
             if(stopEdge[2][0] == false) {
                 if(piecesBlack.includes(horizontalLEFT.classList[horizontalLEFT.classList.length-1])) {
-                    horizontalLEFT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idLEFT)
                     stopEdge[2][0] = true;
                 }
@@ -392,17 +439,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[2].includes(idLEFT)) {
                     stopEdge[2][0] = true;
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
                 else {
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
             }     
             if(stopEdge[3][0] == false) {
                 if(piecesBlack.includes(horizontalRIGHT.classList[horizontalRIGHT.classList.length-1])) {
-                    horizontalRIGHT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idRIGHT)
                     stopEdge[3][0] = true;
                 }
@@ -411,11 +464,15 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[3].includes(idRIGHT)) {
                     stopEdge[3][0] = true;
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
                 else {
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
             } 
@@ -464,7 +521,9 @@ function showMove(classPiece,id) {
 
             if(stopEdge[0][0] == false) {
                 if(piecesWhite.includes(verticalUP.classList[verticalUP.classList.length-1])) {
-                    verticalUP.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idUP);
                     stopEdge[0][0] = true;
                 }
@@ -473,17 +532,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[0].includes(idUP)) {
                     stopEdge[0][0] = true;
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
                 else {
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
             }
             if(stopEdge[1][0] == false) {
                 if(piecesWhite.includes(verticalDOWN.classList[verticalDOWN.classList.length-1])) {
-                    verticalDOWN.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idDOWN)
                     stopEdge[1][0] = true;
                 }
@@ -492,17 +557,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[1].includes(idDOWN)) {
                     stopEdge[1][0] = true;
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
                 else {
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
             }
             if(stopEdge[2][0] == false) {
                 if(piecesWhite.includes(horizontalLEFT.classList[horizontalLEFT.classList.length-1])) {
-                    horizontalLEFT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idLEFT)
                     stopEdge[2][0] = true;
                 }
@@ -511,17 +582,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[2].includes(idLEFT)) {
                     stopEdge[2][0] = true;
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
                 else {
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
             }     
             if(stopEdge[3][0] == false) {
                 if(piecesWhite.includes(horizontalRIGHT.classList[horizontalRIGHT.classList.length-1])) {
-                    horizontalRIGHT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idRIGHT);
                     stopEdge[3][0] = true;
                 }
@@ -530,11 +607,15 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[3].includes(idRIGHT)) {
                     stopEdge[3][0] = true;
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
                 else {
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
             } 
@@ -615,14 +696,18 @@ function showMove(classPiece,id) {
                 let getPossibleMove1 = possibleMoves.get(identifier1.toString());
                 console.log("getPossibleMove1: ",i*2 , JSON.stringify(getPossibleMove1));
                 if(piecesBlack.includes(document.getElementById(getPossibleMove1).classList[document.getElementById(getPossibleMove1).classList.length-1])) {
-                    document.getElementById(getPossibleMove1).classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove1).classList.add("validMoveOccupied");
+                    }
                     highlight.push(getPossibleMove1);
                 }
                 else if(piecesWhite.includes(document.getElementById(getPossibleMove1).classList[document.getElementById(getPossibleMove1).classList.length-1])) {
 
                 }
                 else {
-                    document.getElementById(getPossibleMove1).classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove1).classList.add("validMoveEmpty");
+                    }
                     highlight.push(getPossibleMove1);
                 }
 
@@ -631,14 +716,18 @@ function showMove(classPiece,id) {
                 let getPossibleMove2 = possibleMoves.get(identifier2.toString());
                 console.log("getPossibleMove2: ",(i*2)+1 , JSON.stringify(getPossibleMove2));
                 if(piecesBlack.includes(document.getElementById(getPossibleMove2).classList[document.getElementById(getPossibleMove2).classList.length-1])) {
-                    document.getElementById(getPossibleMove2).classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove2).classList.add("validMoveOccupied");
+                    }
                     highlight.push(getPossibleMove2);
                 }
                 else if(piecesWhite.includes(document.getElementById(getPossibleMove2).classList[document.getElementById(getPossibleMove2).classList.length-1])) {
 
                 }
                 else {
-                    document.getElementById(getPossibleMove2).classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove2).classList.add("validMoveEmpty");
+                    }
                     highlight.push(getPossibleMove2);
                 }
             }
@@ -723,14 +812,18 @@ function showMove(classPiece,id) {
                 let getPossibleMove1 = possibleMoves.get(identifier1.toString());
                 console.log("getPossibleMove1: ",i*2 , JSON.stringify(getPossibleMove1));
                 if(piecesWhite.includes(document.getElementById(getPossibleMove1).classList[document.getElementById(getPossibleMove1).classList.length-1])) {
-                    document.getElementById(getPossibleMove1).classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove1).classList.add("validMoveOccupied");
+                    }
                     highlight.push(getPossibleMove1);
                 }
                 else if(piecesBlack.includes(document.getElementById(getPossibleMove1).classList[document.getElementById(getPossibleMove1).classList.length-1])) {
 
                 }
                 else {
-                    document.getElementById(getPossibleMove1).classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove1).classList.add("validMoveEmpty");
+                    }
                     highlight.push(getPossibleMove1);
                 }
 
@@ -739,14 +832,18 @@ function showMove(classPiece,id) {
                 let getPossibleMove2 = possibleMoves.get(identifier2.toString());
                 console.log("getPossibleMove2: ",(i*2)+1 , JSON.stringify(getPossibleMove2));
                 if(piecesWhite.includes(document.getElementById(getPossibleMove2).classList[document.getElementById(getPossibleMove2).classList.length-1])) {
-                    document.getElementById(getPossibleMove2).classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove2).classList.add("validMoveOccupied");
+                    }
                     highlight.push(getPossibleMove2);
                 }
                 else if(piecesBlack.includes(document.getElementById(getPossibleMove2).classList[document.getElementById(getPossibleMove2).classList.length-1])) {
 
                 }
                 else {
-                    document.getElementById(getPossibleMove2).classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        document.getElementById(getPossibleMove2).classList.add("validMoveEmpty");
+                    }
                     highlight.push(getPossibleMove2);
                 }
             }
@@ -819,7 +916,9 @@ function showMove(classPiece,id) {
                 let getPossibleMoveID = possibleMovesID.get(j.toString());
                 if(stopCorner[j][0] == false) {
                     if(piecesBlack.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
-                        getPossibleMove.classList.add("validMoveOccupied");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveOccupied");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
@@ -827,12 +926,16 @@ function showMove(classPiece,id) {
                         stopCorner[j][0] = true
                     }
                     else if(checkBoardEdge(getPossibleMoveID)){
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
                     else {
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                 }
@@ -900,7 +1003,9 @@ function showMove(classPiece,id) {
                 let getPossibleMoveID = possibleMovesID.get(j.toString());
                 if(stopCorner[j][0] == false) {
                     if(piecesWhite.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
-                        getPossibleMove.classList.add("validMoveOccupied");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveOccupied");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
@@ -908,12 +1013,16 @@ function showMove(classPiece,id) {
                         stopCorner[j][0] = true
                     }
                     else if(checkBoardEdge(getPossibleMoveID)){
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
                     else {
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                 }
@@ -980,7 +1089,9 @@ function showMove(classPiece,id) {
                 let getPossibleMoveID = possibleMovesID.get(j.toString());
                 if(stopCorner[j][0] == false) {
                     if(piecesBlack.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
-                        getPossibleMove.classList.add("validMoveOccupied");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveOccupied");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
@@ -988,12 +1099,16 @@ function showMove(classPiece,id) {
                         stopCorner[j][0] = true
                     }
                     else if(checkBoardEdge(getPossibleMoveID)){
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
                     else {
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                 }
@@ -1037,7 +1152,9 @@ function showMove(classPiece,id) {
 
             if(stopEdge[0][0] == false) {
                 if(piecesBlack.includes(verticalUP.classList[verticalUP.classList.length-1])) {
-                    verticalUP.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idUP);
                     stopEdge[0][0] = true;
                 }
@@ -1046,17 +1163,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[0].includes(idUP)) {
                     stopEdge[0][0] = true;
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
                 else {
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
             }
             if(stopEdge[1][0] == false) {
                 if(piecesBlack.includes(verticalDOWN.classList[verticalDOWN.classList.length-1])) {
-                    verticalDOWN.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idDOWN)
                     stopEdge[1][0] = true;
                 }
@@ -1065,7 +1188,9 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[1].includes(idDOWN)) {
                     stopEdge[1][0] = true;
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
                 else {
@@ -1075,7 +1200,9 @@ function showMove(classPiece,id) {
             }
             if(stopEdge[2][0] == false) {
                 if(piecesBlack.includes(horizontalLEFT.classList[horizontalLEFT.classList.length-1])) {
-                    horizontalLEFT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idLEFT)
                     stopEdge[2][0] = true;
                 }
@@ -1084,17 +1211,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[2].includes(idLEFT)) {
                     stopEdge[2][0] = true;
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
                 else {
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
             }     
             if(stopEdge[3][0] == false) {
                 if(piecesBlack.includes(horizontalRIGHT.classList[horizontalRIGHT.classList.length-1])) {
-                    horizontalRIGHT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idRIGHT)
                     stopEdge[3][0] = true;
                 }
@@ -1103,11 +1236,15 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[3].includes(idRIGHT)) {
                     stopEdge[3][0] = true;
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
                 else {
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
             } 
@@ -1175,7 +1312,9 @@ function showMove(classPiece,id) {
                 let getPossibleMoveID = possibleMovesID.get(j.toString());
                 if(stopCorner[j][0] == false) {
                     if(piecesWhite.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
-                        getPossibleMove.classList.add("validMoveOccupied");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveOccupied");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
@@ -1183,12 +1322,16 @@ function showMove(classPiece,id) {
                         stopCorner[j][0] = true
                     }
                     else if(checkBoardEdge(getPossibleMoveID)){
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                         stopCorner[j][0] = true;
                     }
                     else {
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                 }
@@ -1232,7 +1375,9 @@ function showMove(classPiece,id) {
 
             if(stopEdge[0][0] == false) {
                 if(piecesWhite.includes(verticalUP.classList[verticalUP.classList.length-1])) {
-                    verticalUP.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idUP);
                     stopEdge[0][0] = true;
                 }
@@ -1241,17 +1386,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[0].includes(idUP)) {
                     stopEdge[0][0] = true;
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
                 else {
-                    verticalUP.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalUP.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idUP);
                 }
             }
             if(stopEdge[1][0] == false) {
                 if(piecesWhite.includes(verticalDOWN.classList[verticalDOWN.classList.length-1])) {
-                    verticalDOWN.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idDOWN)
                     stopEdge[1][0] = true;
                 }
@@ -1260,17 +1411,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[1].includes(idDOWN)) {
                     stopEdge[1][0] = true;
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
                 else {
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
             }
             if(stopEdge[2][0] == false) {
                 if(piecesWhite.includes(horizontalLEFT.classList[horizontalLEFT.classList.length-1])) {
-                    horizontalLEFT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idLEFT)
                     stopEdge[2][0] = true;
                 }
@@ -1279,17 +1436,23 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[2].includes(idLEFT)) {
                     stopEdge[2][0] = true;
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
                 else {
-                    horizontalLEFT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalLEFT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idLEFT);
                 }
             }     
             if(stopEdge[3][0] == false) {
                 if(piecesWhite.includes(horizontalRIGHT.classList[horizontalRIGHT.classList.length-1])) {
-                    horizontalRIGHT.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveOccupied");
+                    }
                     highlight.push(idRIGHT);
                     stopEdge[3][0] = true;
                 }
@@ -1298,11 +1461,15 @@ function showMove(classPiece,id) {
                 }
                 else if(boardEdge[3].includes(idRIGHT)) {
                     stopEdge[3][0] = true;
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
                 else {
-                    horizontalRIGHT.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        horizontalRIGHT.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idRIGHT);
                 }
             } 
@@ -1393,18 +1560,24 @@ function showMove(classPiece,id) {
             let getPossibleMoveID = possibleMovesID.get(j.toString());
             if(stopEdge[j][0] == false) {
                 if(piecesBlack.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
-                    getPossibleMove.classList.add("validMoveOccupied");
+                    if(onlyHighlight == false) {
+                        getPossibleMove.classList.add("validMoveOccupied");
+                    }
                     highlight.push(getPossibleMoveID);
                 }
                 else if(piecesWhite.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
 
                 }
                 else if(checkBoardEdge(getPossibleMoveID)){
-                    getPossibleMove.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        getPossibleMove.classList.add("validMoveEmpty");
+                    }
                     highlight.push(getPossibleMoveID);
                 }
                 else {
-                    getPossibleMove.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        getPossibleMove.classList.add("validMoveEmpty");
+                    }
                     highlight.push(getPossibleMoveID);
                 }
             }
@@ -1495,18 +1668,24 @@ function showMove(classPiece,id) {
                 let getPossibleMoveID = possibleMovesID.get(j.toString());
                 if(stopEdge[j][0] == false) {
                     if(piecesWhite.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
-                        getPossibleMove.classList.add("validMoveOccupied");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveOccupied");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                     else if(piecesBlack.includes(getPossibleMove.classList[getPossibleMove.classList.length-1])) {
     
                     }
                     else if(checkBoardEdge(getPossibleMoveID)){
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                     else {
-                        getPossibleMove.classList.add("validMoveEmpty");
+                        if(onlyHighlight == false) {
+                            getPossibleMove.classList.add("validMoveEmpty");
+                        }
                         highlight.push(getPossibleMoveID);
                     }
                 }
