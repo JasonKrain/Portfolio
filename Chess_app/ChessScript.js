@@ -111,8 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
         blackMoves.set(piecesBlack[i],highlight);
         highlight = [];
     }
-    console.log("whiteMoves: ",whiteMoves);
-    console.log("blackMoves: ",blackMoves);
 
 })
 
@@ -160,10 +158,13 @@ function isNumber(value) {
 // Onclick Events 
 
 function Update(classList,ID) {
+    console.log("--------------------------------------")
+    let movePieceFlag = false;
     ID = Number(ID);
     var classPiece = classList[classList.length - 1];
     if (highlight.includes(ID)) {
         movePiece(currentPiece, ID, currentClassPiece);
+        movePieceFlag = true;
         turnWhite = !turnWhite;
         if(turnWhite == false) {
             document.getElementById("playerTurn").style.color = "black";
@@ -175,6 +176,7 @@ function Update(classList,ID) {
         }
         currentPiece = 0;
         currentPieceClass = 0;
+
     }
 
     // remove previously highlighted squares
@@ -190,14 +192,17 @@ function Update(classList,ID) {
     }
     highlight = [];
     
+
+
+
+    
     // case: show moves of each piece
     if (!pieceKilled) {
         console.log("classList: ", classList);
         console.log("classPiece: ", classPiece);
         console.log("ID: ", ID);
 
-        console.log("turnWhite: ", turnWhite, " piecesBlack :", piecesBlack.includes(classPiece))
-        console.log("turnWhite: ", turnWhite, " piecesWhite :", piecesWhite.includes(classPiece))
+        
         if((turnWhite == true) && (piecesBlack.includes(classPiece))) {
             classPiece = "wrongSide";
         }
@@ -209,6 +214,16 @@ function Update(classList,ID) {
     currentPiece = ID;
     currentClassPiece = classPiece;
     pieceKilled = false;
+
+    if(movePieceFlag == true) {
+        console.log("movePieceFlag-------------------------------------")
+        targetMoveset = document.getElementById(ID).classList;
+        targetMoveset = targetMoveset[targetMoveset.length-1];
+        showMove(targetMoveset,ID,true);
+        updatePieceMoveset(targetMoveset,highlight);
+    }
+    
+    checkForMate();
 
 }
 
@@ -231,15 +246,45 @@ function checkBoardEdge(id) {
     }
 }
 
+function checkForMate() {
+    console.log("inide CheckForMate()-----------------------")
+    for(let x of piecesWhite) {
+        console.log("x: ",x);
+        console.log("-----");
+        console.log(whiteMoves.get(x).includes(document.getElementsByClassName("kingBlack")[0].id))
+        if(whiteMoves.get(x).includes(document.getElementsByClassName("kingBlack")[0].id)) {
+            let mateKing = document.getElementsByClassName("kingBlack");
+            mateKing.classList.remove("kingBlack");
+            mateKing.classList.add("validMoveOccupied");
+            mateKing.classList.add("kingBlack");
+        }
+    }
+}
+
+function updatePieceMoveset(classPiece,highlight) {
+    console.log("inside UpdatePieceMoveset");
+    console.log("classPiece: ",classPiece," hightlight: ",highlight);
+    console.log(whiteMoves.has(classPiece));
+    if(whiteMoves.has(classPiece)) {
+        whiteMoves.set(classPiece,highlight);
+        console.log("updatePieceMoveset:white ",whiteMoves.get(classPiece));
+    }
+    else if (blackMoves.has(classPiece)) {
+        blackMoves.set(classPiece,highlight);
+        console.log("updatePieceMoveset:black ",blackMoves.get(classPiece));
+    }
+
+}
+
 // Movesets ----------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------------------
 function showMove(classPiece,id,highlightOnly) {
     let onlyHighlight;
     if(highlightOnly == true) {
-        onlyHighlight = true
+        onlyHighlight = true;
     }
     else {
-        onlyHighlight = false
+        onlyHighlight = false;
     }
     console.log("onlyHighlight: ",onlyHighlight);
     switch(classPiece) {
@@ -1194,7 +1239,9 @@ function showMove(classPiece,id,highlightOnly) {
                     highlight.push(idDOWN);
                 }
                 else {
-                    verticalDOWN.classList.add("validMoveEmpty");
+                    if(onlyHighlight == false) {
+                        verticalDOWN.classList.add("validMoveEmpty");
+                    }
                     highlight.push(idDOWN);
                 }
             }
