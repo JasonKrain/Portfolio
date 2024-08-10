@@ -6,8 +6,6 @@ var squareColour = false;
 var turnWhite = true;
 var checkedWhite = false;
 var checkedBlack = false;
-var winWhite = false;
-var winBlack = false;
 var gameEnd = false;
 var highlight = [];
 var currentPiece = 0;
@@ -97,20 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // create starting positions
     startingPosition();
-
-    // load current possible moves of each piece
-    for(let i = 0; i < piecesWhite.length; i++) {
-        console.log("piecesWhite[i]: ",piecesWhite[i]," id: ",document.getElementsByClassName(piecesWhite[i])[0].id);
-        showMove(piecesWhite[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
-        whiteMoves.set(piecesWhite[i],highlight);
-        highlight = [];
-    }
-
-    for(let i = 0; i < piecesBlack.length; i++) {
-        showMove(piecesBlack[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
-        blackMoves.set(piecesBlack[i],highlight);
-        highlight = [];
-    }
+    checkMoves();
+    highlight = [];
 
 })
 
@@ -161,7 +147,8 @@ function Update(classList,ID) {
     console.log("--------------------------------------")
     let movePieceFlag = false;
     ID = Number(ID);
-    var classPiece = classList[classList.length - 1];
+    let classPiece = classList[classList.length - 1];
+    console.log("hightlight :",highlight);
     if (highlight.includes(ID)) {
         movePiece(currentPiece, ID, currentClassPiece);
         movePieceFlag = true;
@@ -179,10 +166,9 @@ function Update(classList,ID) {
 
     }
 
+
     // remove previously highlighted squares
     for (let i = 0; i < highlight.length; i++) {
-        console.log(highlight[i]);
-        console.log(document.getElementById(highlight[i]).classList);
         if (document.getElementById(highlight[i]).classList.contains("validMoveEmpty")) {
             document.getElementById(highlight[i]).classList.remove("validMoveEmpty");
         }
@@ -200,9 +186,7 @@ function Update(classList,ID) {
     if (!pieceKilled) {
         console.log("classList: ", classList);
         console.log("classPiece: ", classPiece);
-        console.log("ID: ", ID);
-
-        
+        console.log("ID: ", ID);        
         if((turnWhite == true) && (piecesBlack.includes(classPiece))) {
             classPiece = "wrongSide";
         }
@@ -210,21 +194,22 @@ function Update(classList,ID) {
             classPiece = "wrongSide";
         }
         showMove(classPiece,ID);
+        console.log("aiofghasoig ",highlight);
     }
+    let highlightSave = highlight;
     currentPiece = ID;
     currentClassPiece = classPiece;
     pieceKilled = false;
 
     if(movePieceFlag == true) {
-        console.log("movePieceFlag-------------------------------------")
+        // console.log("movePieceFlag-------------------------------------")
         targetMoveset = document.getElementById(ID).classList;
         targetMoveset = targetMoveset[targetMoveset.length-1];
         showMove(targetMoveset,ID,true);
-        updatePieceMoveset(targetMoveset,highlight);
+        highlight = [];
     }
-    
     checkForMate();
-
+    highlight = highlightSave;
 }
 
 function inRangeOfBoard(id) {
@@ -246,35 +231,61 @@ function checkBoardEdge(id) {
     }
 }
 
+function checkMoves() {
+    // load current possible moves of each piece
+    for(let i = 0; i < piecesWhite.length; i++) {
+        highlight = [];
+        // console.log("piecesWhite[i]: ",piecesWhite[i]," id: ",document.getElementsByClassName(piecesWhite[i])[0].id);
+        showMove(piecesWhite[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
+        whiteMoves.set(piecesWhite[i],highlight);
+    }
+
+    for(let i = 0; i < piecesBlack.length; i++) {
+        highlight = [];
+        // console.log("piecesBlack[i]: ",piecesBlack[i]," id: ",document.getElementsByClassName(piecesBlack[i])[0].id);
+        showMove(piecesBlack[i],document.getElementsByClassName(piecesBlack[i])[0].id,true);
+        blackMoves.set(piecesBlack[i],highlight);
+    }
+}
+
 function checkForMate() {
     console.log("inide CheckForMate()-----------------------")
+    checkMoves();
+    
+    checkedBlack = false;
+    checkedWhite = false;
+    console.log("whiteMoves: ",whiteMoves);
     for(let x of piecesWhite) {
-        console.log("x: ",x);
-        console.log("-----");
-        console.log(whiteMoves.get(x).includes(document.getElementsByClassName("kingBlack")[0].id))
-        if(whiteMoves.get(x).includes(document.getElementsByClassName("kingBlack")[0].id)) {
-            let mateKing = document.getElementsByClassName("kingBlack");
+        if(whiteMoves.get(x).includes(Number(document.getElementsByClassName("kingBlack")[0].id))) {
+            let mateKing = document.getElementsByClassName("kingBlack")[0];
             mateKing.classList.remove("kingBlack");
             mateKing.classList.add("validMoveOccupied");
             mateKing.classList.add("kingBlack");
+            checkedBlack = true;
+        }
+        else if(checkedBlack == false) {
+            let mateKing = document.getElementsByClassName("kingBlack")[0];
+            mateKing.classList.remove("validMoveOccupied");
+            checkedBlack = false;
+        }
+    }
+    console.log("blackMoves: ",blackMoves);
+    for(let x of piecesBlack) {
+        if(blackMoves.get(x).includes(Number(document.getElementsByClassName("kingWhite")[0].id))) {
+            let mateKing = document.getElementsByClassName("kingWhite")[0];
+            mateKing.classList.remove("kingWhite");
+            mateKing.classList.add("validMoveOccupied");
+            mateKing.classList.add("kingWhite");
+            checkedWhite = true;
+        }
+        else if(checkedWhite == false) {
+            let mateKing = document.getElementsByClassName("kingWhite")[0];
+            mateKing.classList.remove("validMoveOccupied");
+            checkedBlack = false;
         }
     }
 }
 
-function updatePieceMoveset(classPiece,highlight) {
-    console.log("inside UpdatePieceMoveset");
-    console.log("classPiece: ",classPiece," hightlight: ",highlight);
-    console.log(whiteMoves.has(classPiece));
-    if(whiteMoves.has(classPiece)) {
-        whiteMoves.set(classPiece,highlight);
-        console.log("updatePieceMoveset:white ",whiteMoves.get(classPiece));
-    }
-    else if (blackMoves.has(classPiece)) {
-        blackMoves.set(classPiece,highlight);
-        console.log("updatePieceMoveset:black ",blackMoves.get(classPiece));
-    }
-
-}
 
 // Movesets ----------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -286,7 +297,7 @@ function showMove(classPiece,id,highlightOnly) {
     else {
         onlyHighlight = false;
     }
-    console.log("onlyHighlight: ",onlyHighlight);
+    // console.log("onlyHighlight: ",onlyHighlight);
     switch(classPiece) {
     case "pawnWhite1":
     case "pawnWhite2":
@@ -715,7 +726,7 @@ function showMove(classPiece,id,highlightOnly) {
             }
         }
 
-        console.log("stopEdge: ",JSON.stringify(stopEdge));
+        // console.log("stopEdge: ",JSON.stringify(stopEdge));
 
         //check if path direction is on "edge"
     
@@ -731,7 +742,7 @@ function showMove(classPiece,id,highlightOnly) {
         if(document.getElementById(idRIGHT).classList.contains("edge")) {
             stopEdge[3][0] = true;
         }
-        console.log("stopEdge: ",JSON.stringify(stopEdge));
+        // console.log("stopEdge: ",JSON.stringify(stopEdge));
 
         
         //check possible moves
@@ -739,7 +750,7 @@ function showMove(classPiece,id,highlightOnly) {
             if(stopEdge[i][0] == false) {
                 let identifier1 = i*2;
                 let getPossibleMove1 = possibleMoves.get(identifier1.toString());
-                console.log("getPossibleMove1: ",i*2 , JSON.stringify(getPossibleMove1));
+                // console.log("getPossibleMove1: ",i*2 , JSON.stringify(getPossibleMove1));
                 if(piecesBlack.includes(document.getElementById(getPossibleMove1).classList[document.getElementById(getPossibleMove1).classList.length-1])) {
                     if(onlyHighlight == false) {
                         document.getElementById(getPossibleMove1).classList.add("validMoveOccupied");
@@ -759,7 +770,7 @@ function showMove(classPiece,id,highlightOnly) {
                 //--------------------
                 let identifier2 = (i*2)+1;
                 let getPossibleMove2 = possibleMoves.get(identifier2.toString());
-                console.log("getPossibleMove2: ",(i*2)+1 , JSON.stringify(getPossibleMove2));
+                // console.log("getPossibleMove2: ",(i*2)+1 , JSON.stringify(getPossibleMove2));
                 if(piecesBlack.includes(document.getElementById(getPossibleMove2).classList[document.getElementById(getPossibleMove2).classList.length-1])) {
                     if(onlyHighlight == false) {
                         document.getElementById(getPossibleMove2).classList.add("validMoveOccupied");
@@ -831,7 +842,7 @@ function showMove(classPiece,id,highlightOnly) {
             }
         }
 
-        console.log("stopEdge: ",JSON.stringify(stopEdge));
+        // console.log("stopEdge: ",JSON.stringify(stopEdge));
 
         //check if path direction is on "edge"
     
@@ -847,7 +858,7 @@ function showMove(classPiece,id,highlightOnly) {
         if(document.getElementById(idRIGHT).classList.contains("edge")) {
             stopEdge[3][0] = true;
         }
-        console.log("stopEdge: ",JSON.stringify(stopEdge));
+        // console.log("stopEdge: ",JSON.stringify(stopEdge));
 
         
         //check possible moves
@@ -855,7 +866,7 @@ function showMove(classPiece,id,highlightOnly) {
             if(stopEdge[i][0] == false) {
                 let identifier1 = i*2;
                 let getPossibleMove1 = possibleMoves.get(identifier1.toString());
-                console.log("getPossibleMove1: ",i*2 , JSON.stringify(getPossibleMove1));
+                // console.log("getPossibleMove1: ",i*2 , JSON.stringify(getPossibleMove1));
                 if(piecesWhite.includes(document.getElementById(getPossibleMove1).classList[document.getElementById(getPossibleMove1).classList.length-1])) {
                     if(onlyHighlight == false) {
                         document.getElementById(getPossibleMove1).classList.add("validMoveOccupied");
@@ -875,7 +886,7 @@ function showMove(classPiece,id,highlightOnly) {
                 //--------------------
                 let identifier2 = (i*2)+1;
                 let getPossibleMove2 = possibleMoves.get(identifier2.toString());
-                console.log("getPossibleMove2: ",(i*2)+1 , JSON.stringify(getPossibleMove2));
+                // console.log("getPossibleMove2: ",(i*2)+1 , JSON.stringify(getPossibleMove2));
                 if(piecesWhite.includes(document.getElementById(getPossibleMove2).classList[document.getElementById(getPossibleMove2).classList.length-1])) {
                     if(onlyHighlight == false) {
                         document.getElementById(getPossibleMove2).classList.add("validMoveOccupied");
