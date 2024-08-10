@@ -148,7 +148,7 @@ function Update(classList,ID) {
     let movePieceFlag = false;
     ID = Number(ID);
     let classPiece = classList[classList.length - 1];
-    console.log("hightlight :",highlight);
+    console.log("highlight :",highlight);
     if (highlight.includes(ID)) {
         movePiece(currentPiece, ID, currentClassPiece);
         movePieceFlag = true;
@@ -163,7 +163,6 @@ function Update(classList,ID) {
         }
         currentPiece = 0;
         currentPieceClass = 0;
-
     }
 
 
@@ -201,15 +200,12 @@ function Update(classList,ID) {
     currentClassPiece = classPiece;
     pieceKilled = false;
 
-    if(movePieceFlag == true) {
-        // console.log("movePieceFlag-------------------------------------")
-        targetMoveset = document.getElementById(ID).classList;
-        targetMoveset = targetMoveset[targetMoveset.length-1];
-        showMove(targetMoveset,ID,true);
-        highlight = [];
-    }
     checkForMate();
     highlight = highlightSave;
+    if(movePieceFlag == true) {
+        highlight = [];
+    }
+
 }
 
 function inRangeOfBoard(id) {
@@ -235,16 +231,24 @@ function checkMoves() {
     // load current possible moves of each piece
     for(let i = 0; i < piecesWhite.length; i++) {
         highlight = [];
-        // console.log("piecesWhite[i]: ",piecesWhite[i]," id: ",document.getElementsByClassName(piecesWhite[i])[0].id);
-        showMove(piecesWhite[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
-        whiteMoves.set(piecesWhite[i],highlight);
+        if(document.getElementsByClassName(piecesWhite[i]).length > 0) {
+            showMove(piecesWhite[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
+            whiteMoves.set(piecesWhite[i],highlight);
+        }
+        else {
+            whiteMoves.set(piecesWhite[i],[0]);
+        }
     }
 
     for(let i = 0; i < piecesBlack.length; i++) {
         highlight = [];
-        // console.log("piecesBlack[i]: ",piecesBlack[i]," id: ",document.getElementsByClassName(piecesBlack[i])[0].id);
-        showMove(piecesBlack[i],document.getElementsByClassName(piecesBlack[i])[0].id,true);
-        blackMoves.set(piecesBlack[i],highlight);
+        if(document.getElementsByClassName(piecesBlack[i]).length > 0) {
+            showMove(piecesBlack[i],document.getElementsByClassName(piecesBlack[i])[0].id,true);
+            blackMoves.set(piecesBlack[i],highlight);
+        }
+        else {
+            blackMoves.set(piecesBlack[i],[0]);
+        }
     }
 }
 
@@ -269,7 +273,7 @@ function checkForMate() {
             checkedBlack = false;
         }
     }
-    console.log("blackMoves: ",blackMoves);
+    // console.log("blackMoves: ",blackMoves);
     for(let x of piecesBlack) {
         if(blackMoves.get(x).includes(Number(document.getElementsByClassName("kingWhite")[0].id))) {
             let mateKing = document.getElementsByClassName("kingWhite")[0];
