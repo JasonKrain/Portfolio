@@ -9,11 +9,9 @@ function Menu() {
         `;
         menuState = 1;
         if(document.getElementById("nav-bar").classList = "") {
-          console.log("1");
           document.getElementById("nav-bar").classList.add("nav-button-animation");
         }
         else {
-          console.log("2");
           document.getElementById("nav-bar").classList.remove("nav-bar-animation-reverse");
           document.getElementById("nav-bar").classList.add("nav-bar-animation");
         }

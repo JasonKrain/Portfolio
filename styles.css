@@ -326,6 +326,7 @@ section {
 
 
 #skillset {
+    /* padding-top: 2rem; */
     display: flex;
     gap: 5rem;
     flex-wrap: wrap;
@@ -406,3 +407,4 @@ section {
         width: 6rem;
     }
 }
+
