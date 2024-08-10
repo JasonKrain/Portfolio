@@ -193,7 +193,6 @@ function Update(classList,ID) {
             classPiece = "wrongSide";
         }
         showMove(classPiece,ID);
-        console.log("aiofghasoig ",highlight);
     }
     let highlightSave = highlight;
     currentPiece = ID;
@@ -232,7 +231,7 @@ function checkMoves() {
     for(let i = 0; i < piecesWhite.length; i++) {
         highlight = [];
         if(document.getElementsByClassName(piecesWhite[i]).length > 0) {
-            showMove(piecesWhite[i],document.getElementsByClassName(piecesWhite[i])[0].id,true);
+            showMove(piecesWhite[i],Number(document.getElementsByClassName(piecesWhite[i])[0].id),true);
             whiteMoves.set(piecesWhite[i],highlight);
         }
         else {
@@ -243,7 +242,8 @@ function checkMoves() {
     for(let i = 0; i < piecesBlack.length; i++) {
         highlight = [];
         if(document.getElementsByClassName(piecesBlack[i]).length > 0) {
-            showMove(piecesBlack[i],document.getElementsByClassName(piecesBlack[i])[0].id,true);
+            showMove(piecesBlack[i],Number(document.getElementsByClassName(piecesBlack[i])[0].id),true);
+            // console.log("highlightBlack: ", highlight);
             blackMoves.set(piecesBlack[i],highlight);
         }
         else {
@@ -258,7 +258,7 @@ function checkForMate() {
     
     checkedBlack = false;
     checkedWhite = false;
-    console.log("whiteMoves: ",whiteMoves);
+    // console.log("whiteMoves: ",whiteMoves);
     for(let x of piecesWhite) {
         if(whiteMoves.get(x).includes(Number(document.getElementsByClassName("kingBlack")[0].id))) {
             let mateKing = document.getElementsByClassName("kingBlack")[0];
