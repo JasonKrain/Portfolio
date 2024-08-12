@@ -12,6 +12,8 @@
     font-family: "Poppins", sans-serif;
 }
 
+
+
 body {
     overflow-x: hidden;
     min-height: 100vh;
@@ -314,14 +316,14 @@ section {
     align-items: center;
 }
 
-#description p {
+.description {
     color: white;
     max-width: 80vw;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     scale: .8; opacity: 0;
     animation: fade-in linear forwards;
     animation-timeline: view();
-    animation-range: cover cover 500px;
+    animation-range: cover cover 50vh;
 }
 
 
@@ -411,7 +413,7 @@ section {
         width: 960px;
         height: 540px;
     }
-    #description p {
+    .description{
         font-size: 15px;
     }
     .project-description {

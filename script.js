@@ -49,7 +49,7 @@ document.addEventListener("scroll",function() {
     document.getElementById("transition-image").style.opacity = opacity;
   }
 
-  var aboutMeHeight = (document.getElementById("about-me").scrollHeight)*0.65 + document.getElementById("transition").scrollHeight + document.getElementById("projects").scrollHeight ;
+  var aboutMeHeight = (document.getElementById("about-me").scrollHeight) + document.getElementById("transition").scrollHeight + document.getElementById("projects").scrollHeight -280;
 
   if(remaining > aboutMeHeight) {
     document.getElementById("transition-image").style.bottom = (remaining - aboutMeHeight)*0.11 + "%";
