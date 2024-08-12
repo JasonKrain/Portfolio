@@ -16,10 +16,8 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     margin: 0;
-    /* background-color: #090947;
-    background-image: linear-gradient(315deg, #090947 0%, #5a585a 74%); */
-    background-color: #9fa4c4;
-    background-image: linear-gradient(315deg, #9fa4c4 0%, #9e768f 74%);
+    background-color: #acabb0;
+    background-image: linear-gradient(315deg, #acabb0 0%, #e01c34 74%);
 
 
 }
@@ -326,7 +324,7 @@ section {
 
 
 #skillset {
-    /* padding-top: 2rem; */
+    padding-top: 75px;
     display: flex;
     gap: 5rem;
     flex-wrap: wrap;
@@ -342,7 +340,9 @@ section {
 /* ------------------ */
 /* Project Section */
 
-
+#projects {
+    padding-top: 75px;
+}
 
 .project-entry {
     display: grid;
@@ -355,7 +355,7 @@ section {
 }
 
 .project-entry:hover {
-    background-color: lightgrey;
+    background-color: rgba(105, 105, 105,0.7);
 }
 
 .project-description {
@@ -368,6 +368,10 @@ section {
 
 /* ------------------- */
 /* Contact Me Section */
+
+#contact {
+    padding-top: 75px;
+}
 
 #contact-form-entry {
     display: flex;
@@ -395,13 +399,18 @@ section {
         width: 960px;
         height: 540px;
     }
-    
-}
-@media (max-width:800px) {
     #description p {
         font-size: 15px;
     }
+    .project-description {
+        font-size: 13px;
+    }
+    .dropdown-button {
+        font-size: 22px;
+    }
+    
 }
+
 @media (max-width:550px) {
     .image {
         width: 6rem;
