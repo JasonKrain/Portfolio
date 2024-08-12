@@ -224,6 +224,8 @@ section {
     to { scale: 1; opacity: 1;}
 }
 
+
+
 #download {
     background-color: blue;
     border-radius: 20px;
@@ -359,10 +361,16 @@ section {
     margin-bottom: 2rem;
     text-decoration: none;
     border-radius: 2rem;
+    transform: translate(0px);
+    background-color: transparent;
+    transition: 0.5s ease-out;
 }
 
 .project-entry:hover {
-    background-color: rgba(105, 105, 105,0.7);
+    background-color: purple;
+    transform: translate(20px);
+    border: 2px solid black;
+    cursor: pointer;
 }
 
 .project-description {
@@ -370,7 +378,6 @@ section {
     display: flex;
     align-items: center;
 }
-
 
 
 
@@ -424,6 +431,12 @@ section {
         font-size: 22px;
     }
     
+}
+
+@media (min-width: 1200px) {
+    .description{
+        font-size: 1.6rem;
+    }
 }
 
 @media (max-width:550px) {
