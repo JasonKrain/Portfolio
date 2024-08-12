@@ -11,6 +11,8 @@ var highlight = [];
 var currentPiece = 0;
 var currentClassPiece = 0;
 var pieceKilled = false;
+var pieceWhiteCausingCheck;
+var pieceBlackCausingCheck;
 const pieces = [
     "pawnBlack1","pawnBlack2","pawnBlack3","pawnBlack4","pawnBlack5","pawnBlack6","pawnBlack7","pawnBlack8",
     "pawnWhite1","pawnWhite2","pawnWhite3","pawnWhite4","pawnWhite5","pawnWhite6","pawnWhite7","pawnWhite8",
@@ -71,6 +73,7 @@ var boardEdge = [
     [1,9,17,25,33,41,49,57],
     [8,16,24,32,40,48,56,64]
 ];
+
 
 // ----------------------------
 // Page Load
@@ -253,7 +256,7 @@ function checkMoves() {
 }
 
 function checkForMate() {
-    console.log("inide CheckForMate()-----------------------")
+    console.log("inside CheckForMate()-----------------------")
     checkMoves();
     
     checkedBlack = false;
@@ -266,11 +269,13 @@ function checkForMate() {
             mateKing.classList.add("validMoveOccupied");
             mateKing.classList.add("kingBlack");
             checkedBlack = true;
+            pieceWhiteCausingCheck = x;
         }
         else if(checkedBlack == false) {
             let mateKing = document.getElementsByClassName("kingBlack")[0];
             mateKing.classList.remove("validMoveOccupied");
             checkedBlack = false;
+            pieceWhiteCausingCheck = "";
         }
     }
     // console.log("blackMoves: ",blackMoves);
@@ -281,11 +286,13 @@ function checkForMate() {
             mateKing.classList.add("validMoveOccupied");
             mateKing.classList.add("kingWhite");
             checkedWhite = true;
+            pieceBlackCausingCheck = x;
         }
         else if(checkedWhite == false) {
             let mateKing = document.getElementsByClassName("kingWhite")[0];
             mateKing.classList.remove("validMoveOccupied");
             checkedBlack = false;
+            pieceBlackCausingCheck = "";
         }
     }
 }
