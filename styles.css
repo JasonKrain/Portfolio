@@ -240,7 +240,6 @@ section {
 }
 
 #download span {
-    padding-left: ;
     border-style: solid;
     border-radius: 20px;
 }
@@ -395,6 +394,12 @@ section {
 
 #contact-description {
     height: 10rem;
+}
+
+#maintainence {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
 
 
