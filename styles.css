@@ -348,13 +348,14 @@ section {
 
 .project-entry {
     padding: 15px;
+    padding-right: 30px;
     display: grid;
     width: 80vw;
     grid-template-columns: 70% 30%;
     margin: auto;
     margin-bottom: 2rem;
     text-decoration: none;
-    border-radius: 3rem;
+    border-radius: 2rem;
 }
 
 .project-entry:hover {
@@ -366,6 +367,8 @@ section {
     display: flex;
     align-items: center;
 }
+
+
 
 
 
