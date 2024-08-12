@@ -222,11 +222,12 @@ section {
 }
 
 #download {
-    background-color: transparent;
+    background-color: darkred;
     border-radius: 20px;
     display: flex;
     justify-content: center; 
     gap: 10px;
+    text-decoration: none;
     border-style: solid;
     color: white;
     scale: 1; opacity: 1;
@@ -235,9 +236,11 @@ section {
     animation-range: exit -100px;
     font-size: 1.2rem;
     width: max-content;
+    padding-left: 10px
 }
 
 #download span {
+    padding-left: ;
     border-style: solid;
     border-radius: 20px;
 }
@@ -345,6 +348,7 @@ section {
 }
 
 .project-entry {
+    padding: 15px;
     display: grid;
     width: 80vw;
     grid-template-columns: 70% 30%;
