@@ -730,14 +730,23 @@ function showMove(classPiece,id,highlightOnly) {
             [false]
         ];
 
+        let allowEdgeCase = [
+            [false],
+            [false],
+            [false],
+            [false]
+        ];
+
         //check if knight is on "edge"
         for(let i=0;i<4;i++) {
             if(boardEdge[i].includes(id)) {
                 stopEdge[i][0] = true;
+                
             }
         }
+        // console.log("stopedge horse: ",stopEdge);
 
-        // console.log("stopEdge: ",JSON.stringify(stopEdge));
+        console.log("stopEdge: ",JSON.stringify(stopEdge));
 
         //check if path direction is on "edge"
     
@@ -753,7 +762,7 @@ function showMove(classPiece,id,highlightOnly) {
         if(document.getElementById(idRIGHT).classList.contains("edge")) {
             stopEdge[3][0] = true;
         }
-        // console.log("stopEdge: ",JSON.stringify(stopEdge));
+        console.log("stopEdge: ",JSON.stringify(stopEdge));
 
         
         //check possible moves
